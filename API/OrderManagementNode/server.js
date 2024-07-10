@@ -19,9 +19,27 @@ var mycontext = {
 const userSchema=require("./schema/Index.js");
 const { mongo } = require("./config/db.js");
 const app = express();
+
+function loggingMiddleware(req, res, next){
+console.log(req.ip);
+next();
+// return [
+//     async (req, res, next) => {
+//       try {
+//         console.log("req",req.ip)
+//         next();
+//       } catch (e) {
+//         console.log("eeeeeee",e)
+//       }
+//     },
+//   ];
+}
+
+
+
 const PORT = 4600;
 
-
+app.use(loggingMiddleware)
 app.use(cors());
 app.use(express.json())
 
@@ -50,7 +68,7 @@ app.listen(PORT, ()=>{
     console.log(`Server is listerning on http://localhost:${PORT}`)
 })
 
-// app.get("/", (req, res)=>{
-//     res.type("html")
-//     res.end(ruruHTML({ endpoint: "/graphql"}))    
-// })
+app.get("/", (req, res)=>{
+    res.type("html")
+    res.end(ruruHTML({ endpoint: "/graphql"}))    
+})

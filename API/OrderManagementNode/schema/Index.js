@@ -1,5 +1,5 @@
 const graphql = require("graphql");
-const UserModel = require("../model/users");
+const UserModel = require("../model/UserModel");
 const {USER_LIST, GET_USER} = require("./Queries/UserQueries");
 const {USER_ADD, USER_UPDATE, USER_DELETE} = require("./Mutations/UserMutation");
 const { 

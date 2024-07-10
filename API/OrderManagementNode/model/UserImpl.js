@@ -2,7 +2,8 @@
 // call mongodb functions
 // find, findOne, create
 const mongoose = require("mongoose")
-const UserModel = require("./users")
+const UserModel = require("./UserModel");
+const AddressModel = require("./AddressModel");
 
 async function getAllUser() {
     return await UserModel.find().exec();
@@ -13,13 +14,24 @@ async function getUserById(id) {
 }
 
 async function addUser(args) {
-    console.log(args)
-    return await UserModel.create({
-        _id: args._id,
-        name: args.name,
-        email: args.email,
-        phone: args.phone
-    })
+    // save or create
+const UserDoc = new UserModel();
+const AddressDoc = new AddressModel();
+AddressDoc._id = args.address._id,
+AddressDoc.area = args.address.area,
+AddressDoc.city = args.address.city,
+AddressDoc.pincode = args.address.pincode,
+
+UserDoc._id = args._id
+UserDoc.name = args.name
+UserDoc.email = args.email
+UserDoc.phone = args.phone
+UserDoc.address = args.address._id
+
+const add = await AddressDoc.save();
+const user = await UserDoc.save();
+return user;
+    
 }
 
 async function updateUser(args) {
