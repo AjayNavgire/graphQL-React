@@ -29,7 +29,7 @@ const USER_ADD = {
         address: { type: AddressInputType }
     },
     resolve: async (parent, args, context) => {
-        const res = await context.addUser(args)
+        const res = await context.mycontext.addUser(args)
         return res;
     }
 }
@@ -40,10 +40,11 @@ const USER_UPDATE = {
         _id: { type: GraphQLInt }, // id will be existing
         name: { type: GraphQLString },
         email: { type: GraphQLString },
-        phone: { type: GraphQLString }
+        phone: { type: GraphQLString },
+        address: { type: AddressInputType }
     },
     resolve: async (parent, args, context) => {
-        const res = await context.updateUser(args)
+        const res = await context.mycontext.updateUser(args)
         return res;
     }
 }
@@ -54,7 +55,7 @@ const USER_DELETE = {
         _id: { type: GraphQLInt }, // id will be existing
     },
     resolve: async (parent, args, context) => {
-        const res = await context.deleteUserById(args._id)
+        const res = await context.mycontext.deleteUserById(args._id)
         return res;
     }
 }

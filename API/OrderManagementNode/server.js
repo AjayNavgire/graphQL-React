@@ -21,18 +21,8 @@ const { mongo } = require("./config/db.js");
 const app = express();
 
 function loggingMiddleware(req, res, next){
-console.log(req.ip);
+console.log("Middleware : ",req.ip);
 next();
-// return [
-//     async (req, res, next) => {
-//       try {
-//         console.log("req",req.ip)
-//         next();
-//       } catch (e) {
-//         console.log("eeeeeee",e)
-//       }
-//     },
-//   ];
 }
 
 
@@ -57,7 +47,10 @@ app.all(
     createHandler({
         schema: userSchema,
         rootValue: companyDetails,
-        context: mycontext
+        context: (req, res)=>({
+            ip:req.raw.ip,
+            mycontext: mycontext
+        })
     })
 )
 

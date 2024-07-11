@@ -11,8 +11,7 @@ const {
 const USER_LIST = {
     type: new GraphQLList(User),
     resolve: async (parent, args, context) => {
-        console.log(args)
-        return await context.getAllUser()
+        return await context.mycontext.getAllUser()
     }
 }
 
@@ -22,8 +21,7 @@ const GET_USER = {
         _id: {type:GraphQLInt}
     },
     resolve: async (src, args, context) => {
-        console.log(args)
-        return await context.getUserById(args._id)
+        return await context.mycontext.getUserById(args._id)
     }
 }
 
